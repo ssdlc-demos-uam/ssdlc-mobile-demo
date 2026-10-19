@@ -1,0 +1,39 @@
+{
+  "name": "practica-ssdlc-fp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "API didáctica para practicar un SSDLC en Formación Profesional",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "audit": "npm audit --audit-level=high",
+    "check": "npm run lint && npm test && npm run audit",
+    "docker:build": "docker build -t practica-ssdlc:local .",
+    "docker:run": "docker run --rm -p 3000:3000 --env-file .env practica-ssdlc:local"
+  },
+  "dependencies": {
+    "bcryptjs": "2.4.3",
+    "cors": "2.8.5",
+    "dotenv": "16.4.5",
+    "express": "4.22.3",
+    "express-rate-limit": "7.4.1",
+    "gh": "^1.13.9",
+    "helmet": "8.0.0",
+    "jsonwebtoken": "9.0.2",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "eslint": "9.39.5",
+    "supertest": "7.0.0",
+    "vitest": "5.0.1"
+  }
+}
