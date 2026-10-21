@@ -6,33 +6,32 @@ La práctica se puede hacer con herramientas de línea de comandos. No hace falt
 
 - **JDK 17**.
 - **Gradle 8.9** para compilar el proyecto (usa Android Gradle Plugin 8.7.3).
-- **Android SDK Command-line Tools**, **Android SDK Platform 35**, **Build Tools 35.0.0** y **Platform Tools** (`adb`). Descarga las Command-line Tools desde [Android Developers](https://developer.android.com/studio#command-line-tools-only).
+- **Android CLI** y los paquetes **Android SDK Platform 35**, **Build Tools 35.0.0** y **Platform Tools** (`adb`). Android CLI permite instalar el SDK y gestionar AVD desde terminal; consulta la [página oficial de instalación](https://developer.android.com/tools/agents/android-cli/download).
 - Para emular: **Android Emulator** y una imagen de sistema API 35. Elige la arquitectura que corresponda al ordenador: `arm64-v8a` para Mac Apple Silicon; `x86_64` normalmente para PC Intel/AMD. Si se usa un móvil Android de laboratorio con depuración USB, se puede omitir el emulador y la imagen.
 - API: Node.js 20+ y npm 10+; consulta el README de la raíz.
 - **OWASP ZAP Desktop** y **MobSF** local. Docker Desktop facilita MobSF; como referencia de aula, reserva 4 CPU y 8 GB de RAM para Docker.
 
 ## Preparar Android SDK (una vez)
 
-Descarga y extrae el paquete de Command-line Tools de Google. Coloca su contenido bajo `cmdline-tools/latest` dentro del directorio del SDK. Ejemplo en macOS:
+Instala Android CLI desde Google: en macOS con Apple Silicon, ejecuta el instalador oficial; en Mac Intel, usa el enlace Intel de la misma página; en Windows, puedes usar `winget`. En Linux, sigue el instalador oficial para tu arquitectura. Por ejemplo:
 
 ```bash
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"
-sdkmanager --licenses
-sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0" "emulator" "cmdline-tools;latest"
+curl -fsSL https://dl.google.com/android/cli/latest/darwin_arm64/install.sh | bash
+android update
+android sdk install platform-tools platforms/android-35 build-tools/35.0.0 emulator system-images/android-35/google_apis/arm64-v8a
 ```
 
-En Linux, define `ANDROID_HOME` con la ruta del SDK que hayas elegido, por ejemplo `"$HOME/Android/Sdk"`. Conserva estas variables en el perfil de terminal para futuras sesiones.
+En Windows, instala la CLI con `winget install --id Google.AndroidCLI` y después ejecuta los comandos `android sdk install` equivalentes desde una terminal. La CLI recopila métricas básicas de uso; añade `--no-metrics` a sus comandos si no quieres enviarlas. Consulta los instaladores disponibles y detalles en [Android CLI](https://developer.android.com/tools/agents/android-cli).
 
-Para crear un emulador, instala **una** imagen compatible y usa el mismo identificador en `avdmanager`:
+Para crear y arrancar el emulador desde terminal (Mac/Linux):
 
 ```bash
-sdkmanager "system-images;android-35;google_apis;arm64-v8a"
-avdmanager create avd -n fp-lab -k "system-images;android-35;google_apis;arm64-v8a"
-emulator -avd fp-lab
+android emulator create medium_phone
+android emulator list
+android emulator start medium_phone
 ```
 
-En PC Intel/AMD, sustituye `arm64-v8a` por `x86_64` si esa imagen está disponible para tu sistema. Android publica el [uso de sdkmanager](https://developer.android.com/tools/sdkmanager) y [la gestión del emulador por terminal](https://developer.android.com/studio/run/emulator-commandline). En versiones recientes también puede usarse Android CLI para gestionar SDK y AVD.
+En Windows, el subcomando de Android CLI para gestionar emuladores puede no estar disponible. Para mantener la práctica sin Android Studio, usa un dispositivo Android de laboratorio con depuración USB; también puedes iniciar un AVD ya preparado usando el ejecutable `emulator` incluido en el SDK.
 
 ## Compilar e instalar
 
