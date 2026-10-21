@@ -26,7 +26,7 @@ Al terminar, el equipo podrá:
 |---|---|---|
 | **MobSF** | Análisis estático del APK: permisos, configuración, cadenas y posibles secretos | Docente deja una instancia local lista y un APK de laboratorio |
 | **OWASP ZAP** | Proxy para ver las llamadas de la app a la API y revisar cabeceras/respuestas | ZAP instalado; proxy configurado en el emulador |
-| **Android Studio Emulator** | Ejecutar la app y conceder/denegar permisos | AVD creado y app instalada |
+| **Android SDK CLI + ADB + Emulator** | Compilar/instalar la app, ejecutarla y conceder/denegar permisos | JDK 17, Gradle 8.9, SDK Platform 35; AVD de laboratorio o móvil Android de pruebas |
 | **MASVS/MASWE** | Marco para clasificar y comunicar resultados | Hoja de referencia incluida abajo |
 
 **Extensiones opcionales:** Wireshark para observar metadatos de red en una red aislada; Frida para instrumentación dinámica de una app propia de laboratorio; Burp Suite Community como alternativa a ZAP. No se necesitan para completar el reto. En documentos se escribe **Burp Suite** (no “Burb Suite”).
@@ -43,7 +43,7 @@ Antes de la clase, usar el proyecto incluido en [`mobile-android`](../mobile-and
 
 Usar datos y credenciales ficticios, productos sin valor y una API de sandbox. No conectar servicios de pago reales. Entregar el APK y una ficha de arquitectura simplificada (qué datos transmite y a qué host). La app puede ser una plantilla Android ya compilada: programar una aplicación desde cero no es requisito.
 
-El propio alumnado puede compilar el APK desde Android Studio según el README de la app. Si no hay tiempo de compilación, el docente puede distribuir el APK generado por ese proyecto.
+El alumnado compila con Gradle y herramientas Android CLI siguiendo el README de `mobile-android`; no requiere Android Studio. Si se quiere reducir la instalación en los equipos, el docente puede compilar una vez y distribuir el APK de debug del proyecto. El análisis MobSF, pruebas de permisos y proxy ZAP se mantienen igual.
 
 ## Guion del alumnado
 
